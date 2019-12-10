@@ -3,17 +3,20 @@
 __AUTHOR__ = '王勇'
 version = 0.1
 
+from ToolGUI.nmon_nan import Nmonpy
 from tkinter import *
 
 class ToolGUI:
 
-    def __init__(self, root):
+    def __init__(self, root, **kwargs):
         '''
         初始化数据
         '''
-        #self.frame = Frame(root)        #tkinter模块对象与Class类承接
-        #self.frame.pack()
-        #self.design()
+        #super().__init__()  # 有点相当于tk.Tk()
+
+        self.frame = root
+        self.frame.config(**kwargs)
+        self.design()
         self.me()       #GUI默认显示界面
 
     def design(self):
@@ -21,7 +24,7 @@ class ToolGUI:
         布局text控件、文本、输入控件；text控件中添加滚条
         :return:
         '''
-        GUImenu = Menu(root)
+        GUImenu = Menu(self.frame)
 
         nmon = Menu(GUImenu,tearoff=0)
         nmon.add_command(label='批量部署', command = self.bushu)
@@ -53,48 +56,60 @@ class ToolGUI:
         root.config(menu=GUImenu)
 
     def bushu(self):
-        frame = Frame(root, width=600, height=200, bg='green')
+        frame = Frame(self.frame, width=600, height=200, bg='green')
         lb = Label(frame, text='部署模块开发中......',font=('宋体', 11),
                               bg='#FFFEEE', fg='green')
         frame.place(x=10, y=10)
         lb.place(x=20, y=40)
 
     def jiankong(self):
-        frame = Frame(root, width=600, height=200, bg='green')
+        frame = Frame(self.frame, width=600, height=200, bg='green')
         lb = Label(frame, text='监控模块开发中......',font=('宋体', 11),
                               bg='#FFFEEE', fg='green')
         frame.place(x=10, y=10)
         lb.place(x=20, y=40)
 
     def xiazai(self):
-        frame = Frame(root, width=600, height=200, bg='green')
+        frame = Frame(self.frame, width=600, height=200, bg='green')
         lb = Label(frame, text='下载模块开发中......',font=('宋体', 11),
                               bg='#FFFEEE', fg='green')
         frame.place(x=10, y=10)
         lb.place(x=20, y=40)
 
     def fenxi(self):
+        '''
         frame = Frame(root, width=600, height=200, bg='green')
         lb = Label(frame, text='分析模块开发中......',font=('宋体', 11),
                               bg='#FFFEEE', fg='green')
         frame.place(x=10, y=10)
         lb.place(x=20, y=40)
+        '''
+        Nmonpy(self.frame).main()
 
     def me(self):
-        frame = Frame(root, width=600, height=200, bg='green')
+
+        frame = Frame(self.frame, width=600, height=200, bg='red')
         lb = Label(frame, text='关于模块开发中......',font=('宋体', 11),
                               bg='#FFFEEE', fg='green')
-        frame.place(x=10, y=10)
-        lb.place(x=20, y=40)
+        frame.place(x=100, y=10)
+        lb.place(x=100, y=40)
+
+        #Nmonpy(self.frame).main()
 
 
 if __name__ == '__main__':
 
     root = Tk()
     root.title('GUI')
-    root.geometry('800x600+400+0')   #宽*高+左边界长度+上边界长度
+    #root.geometry('800x600+500+10')   #宽*高+左边界长度+上边界长度
+    root.minsize(800, 600)
+    root.maxsize(800, 600)
     root.resizable(False, False)
-    root.iconbitmap('test.ico')
+    root.iconbitmap(r'test.ico')
+    #root.attributes("-toolwindow", 1)       #没有最大化和最小化的按钮
 
-    ToolGUI(root).design()
+    #root.overrideredirect(True)
+
+
+    ToolGUI(root)
     root.mainloop()
