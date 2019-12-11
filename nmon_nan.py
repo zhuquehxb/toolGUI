@@ -30,16 +30,16 @@ class Nmonpy:
     2、增加html折线图报表功能：根据对应的nmon文件，生成各自的html折线图报表
     '''
 
-    def __init__(self, parent, **kwargs):
+    def __init__(self, root, **kwargs):
         '''
         初始化数据
         '''
-
         #self.frame = Frame(root)        #tkinter模块对象与Class类承接
         #self.frame.pack()
-        self.frame = parent
+        self.frame = root
         self.frame.config(**kwargs)
-        self.frame.attributes('-topmost', 1)
+        #self.frame.attributes('-topmost', 1)
+
         self.design()
 
     def design(self):
